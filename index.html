@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en" data-contrast="deep-warm">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Cowork OS — Claude, but as a coworker.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  :root {
+    /* Cowork-inspired dark warm */
+    --bg: #17140F;
+    --bg-2: #1C1814;
+    --bg-3: #231E18;
+    --panel: #1F1B16;
+    --panel-2: #2A2520;
+    --ink: #F5F0EB;
+    --ink-2: #D9D2C4;
+    --ink-3: #9C9384;
+    --ink-4: #6E6558;
+    --rule: #2E2821;
+    --rule-strong: #3D362D;
+    /* Claude orange */
+    --orange: #CC785C;
+    --orange-hover: #D88A6D;
+    --orange-ink: #E5A088;
+    --orange-soft: rgba(204,120,92,0.12);
+    /* Warm-scheme secondary accents */
+    --sage: #7C9274;
+    --sage-ink: #9DB596;
+    --sage-soft: rgba(124,146,116,0.14);
+    --straw: #D6A85B;
+    --straw-ink: #E8C37E;
+    --straw-soft: rgba(214,168,91,0.12);
+    --sky: #7A9AB5;
+    --sky-ink: #A2BDD3;
+    --sky-soft: rgba(122,154,181,0.14);
+
+    /* Glow rgb channels (used in rgba()) */
+    --orange-rgb: 204,120,92;
+    --sage-rgb:   124,146,116;
+    --straw-rgb:  214,168,91;
+    --sky-rgb:    122,154,181;
+
+    /* Global glow intensity multiplier (0 = off, 1 = visible, 1.6 = bold) */
+    --glow-k: 1;
+
+    /* Default accent hue for a section — swapped per section via inline style */
+    --accent: var(--orange);
+    --accent-ink: var(--orange-ink);
+    --accent-soft: var(--orange-soft);
+    --accent-rgb: 204,120,92;
+
+    /* User-bubble tokens (overridden per scheme) */
+    --userbubble-bg: var(--panel);
+    --userbubble-border: var(--rule-strong);
+    --userbubble-ink: var(--ink);
+  }
+
+  /* ============================================================
+     CONTRAST SCHEMES
+     Switched via <html data-contrast="...">. Each scheme overrides
+     the base tokens so the whole page shifts without touching JSX.
+     ============================================================ */
+
+  /* A — Deep warm (default) : fond quasi-noir chaud, bulle user inversée noir profond */
+  html[data-contrast="deep-warm"] {
+    --bg: #0C0A07;
+    --bg-2: #120F0B;
+    --bg-3: #171310;
+    --panel: #1C1813;
+    --panel-2: #262118;
+    --rule: #2A241E;
+    --rule-strong: #3A322A;
+    --userbubble-bg: #050404;
+    --userbubble-border: #1A1612;
+    --userbubble-ink: #F5F0EB;
+  }
+
+  /* B — Charbon : neutre, le moins chaud, accents orange saillants */
+  html[data-contrast="charcoal"] {
+    --bg: #0A0A0B;
+    --bg-2: #101012;
+    --bg-3: #16161A;
+    --panel: #18181B;
+    --panel-2: #222227;
+    --rule: #26262B;
+    --rule-strong: #34343B;
+    --ink: #F4F4F5;
+    --ink-2: #D4D4D8;
+    --ink-3: #8E8E95;
+    --ink-4: #5E5E66;
+    --userbubble-bg: #000000;
+    --userbubble-border: #1A1A1E;
+    --userbubble-ink: #F4F4F5;
+  }
+
+  /* C — Duotone : fond sombre neutre + panels chauds (rythme visuel) */
+  html[data-contrast="duotone"] {
+    --bg: #0B0907;
+    --bg-2: #14110D;
+    --bg-3: #1E1A15;
+    --panel: #221D17;
+    --panel-2: #2E271F;
+    --rule: #322B23;
+    --rule-strong: #433A30;
+    --userbubble-bg: #040403;
+    --userbubble-border: #1A1612;
+    --userbubble-ink: #F5F0EB;
+  }
+
+  /* Current = baseline v4, no override (html without data-contrast) */
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    font-feature-settings: 'ss01','cv11';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    line-height: 1.55;
+  }
+  .serif { font-family: 'Instrument Serif', 'Times New Roman', serif; font-weight: 400; letter-spacing: -0.01em; }
+  .mono  { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; }
+  .ital  { font-style: italic; }
+
+  ::selection { background: var(--orange); color: #fff; }
+
+  a { color: inherit; text-decoration: none; }
+  .link-u { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--rule-strong); }
+  .link-u:hover { text-decoration-color: var(--orange); color: var(--orange-ink); }
+
+  .shell { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+  .shell-wide { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+
+  /* ============================================================
+     GLOW SYSTEM
+     Each section can declare a local --accent. A large soft radial
+     gradient is painted behind its content via the .glow-stage
+     pseudo layer. Intensity is multiplied by --glow-k.
+     ============================================================ */
+
+  /* BG grid — lines + dots, masked toward a center warm beam */
+  .bg-layer {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    overflow: hidden;
+  }
+  .bg-grid {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(rgba(245,240,235,0.06) 1px, transparent 1px),
+      linear-gradient(to right, rgba(245,240,235,0.025) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(245,240,235,0.025) 1px, transparent 1px);
+    background-size: 44px 44px, 44px 44px, 44px 44px;
+    background-position: 0 0, 0 0, 0 0;
+    mask-image: radial-gradient(ellipse 90% 60% at 50% 30%, #000 20%, rgba(0,0,0,0.45) 55%, transparent 85%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 30%, #000 20%, rgba(0,0,0,0.45) 55%, transparent 85%);
+  }
+  /* Ambient warm vignette */
+  .bg-vignette {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 0%, rgba(204,120,92,0.06) 0%, transparent 70%);
+    opacity: calc(var(--glow-k) * 1);
+  }
+
+  section { position: relative; z-index: 1; }
+
+  /* Per-section radial halo.
+     Drop <div class="glow" /> into a section and it paints the
+     accent color behind the section content. */
+  .glow {
+    position: absolute; inset: 0;
+    pointer-events: none; z-index: 0;
+    overflow: hidden;
+  }
+  .glow::before,
+  .glow::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: calc(var(--glow-k) * 0.55);
+    mix-blend-mode: screen;
+  }
+  .glow::before {
+    /* Main halo */
+    width: 900px; height: 520px;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse at center,
+      rgba(var(--accent-rgb), 0.55) 0%,
+      rgba(var(--accent-rgb), 0.28) 35%,
+      transparent 70%);
+  }
+  .glow::after {
+    /* Smaller tighter core */
+    width: 380px; height: 240px;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse at center,
+      rgba(var(--accent-rgb), 0.6) 0%,
+      transparent 65%);
+    opacity: calc(var(--glow-k) * 0.7);
+  }
+  /* Placement variants for the halo */
+  .glow.glow-left::before { left: 18%; }
+  .glow.glow-left::after  { left: 22%; }
+  .glow.glow-right::before { left: 82%; }
+  .glow.glow-right::after  { left: 78%; }
+  .glow.glow-top::before { top: 10%; }
+  .glow.glow-top::after  { top: 12%; }
+  .glow.glow-bottom::before { top: 90%; }
+  .glow.glow-bottom::after  { top: 88%; }
+
+  /* Section-level accent scoping */
+  .s-orange { --accent: var(--orange); --accent-ink: var(--orange-ink); --accent-soft: var(--orange-soft); --accent-rgb: var(--orange-rgb); }
+  .s-sage   { --accent: var(--sage);   --accent-ink: var(--sage-ink);   --accent-soft: var(--sage-soft);   --accent-rgb: var(--sage-rgb); }
+  .s-straw  { --accent: var(--straw);  --accent-ink: var(--straw-ink);  --accent-soft: var(--straw-soft);  --accent-rgb: var(--straw-rgb); }
+  .s-sky    { --accent: var(--sky);    --accent-ink: var(--sky-ink);    --accent-soft: var(--sky-soft);    --accent-rgb: var(--sky-rgb); }
+
+  /* Highlight word in a headline — italic + always orange (Claude's signature).
+     Switch off with :root.hl-off . */
+  .hl-on .serif em,
+  .hl-on h1 em, .hl-on h2 em, .hl-on h3 em {
+    color: var(--orange-ink);
+    font-style: italic;
+    transition: color .4s ease;
+  }
+  /* Don't override explicitly-colored ems (like pricing strike-throughs) */
+  .serif em[data-keep], em[data-keep] { color: inherit !important; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--ink-3);
+  }
+  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+  /* Renforced section marker — horizontal rule + number + label */
+  .section-marker {
+    display: inline-flex; align-items: center; gap: 14px;
+    margin-bottom: 20px;
+  }
+  .section-marker .bar {
+    width: 38px; height: 1px; background: var(--accent);
+    box-shadow: 0 0 8px rgba(var(--accent-rgb), calc(var(--glow-k) * 0.8));
+  }
+  .section-marker .n {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.14em;
+  }
+  .section-marker .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px; font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform .15s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--orange); color: #fff;
+    box-shadow: 0 0 0 0 rgba(204,120,92,0), 0 10px 30px -12px rgba(204,120,92, calc(var(--glow-k) * 0.6));
+  }
+  .btn-primary:hover {
+    background: var(--orange-hover); transform: translateY(-1px);
+    box-shadow: 0 0 0 3px rgba(204,120,92,0.2), 0 14px 40px -10px rgba(204,120,92, calc(var(--glow-k) * 0.8));
+  }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--rule-strong); }
+  .btn-ghost:hover { border-color: var(--ink-3); background: var(--panel); }
+
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; border-radius: 6px; }
+
+  /* Claude chat bubble / cowork window */
+  .cw-window {
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 22px 26px;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Lit variant needs visible overflow so the outer halo isn't clipped */
+  .cw-window--lit { overflow: visible; }
+  /* Accent-lit variant: a small round halo placed OUTSIDE the window,
+     anchored top-right / top-left / top-center via modifier classes.
+     No more diffuse under-shadow — gives a focused "spotlight" feel. */
+  .cw-window--lit {
+    /* subtle base shadow for depth, no colored bloom */
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,0.55);
+  }
+  .cw-window--lit::before {
+    content: "";
+    position: absolute;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+    background: radial-gradient(circle at center,
+      rgba(var(--accent-rgb), 0.7) 0%,
+      rgba(var(--accent-rgb), 0.3) 38%,
+      transparent 68%);
+    filter: blur(36px);
+    opacity: calc(var(--glow-k) * 1.1);
+    mix-blend-mode: screen;
+    /* default placement = top-right */
+    top: -60px; right: -30px; left: auto; bottom: auto;
+  }
+  /* Placement modifiers (override ::before position) */
+  .cw-window--spot-tr::before { top: -60px; right: -30px;  left: auto;  bottom: auto; }
+  .cw-window--spot-tl::before { top: -60px; left: -30px;   right: auto; bottom: auto; }
+  .cw-window--spot-tc::before { top: -90px; left: 50%; transform: translateX(-50%); right: auto; bottom: auto; }
+  /* Hide the halo cleanly if glow is off */
+  html[style*="--glow-k: 0"] .cw-window--lit::before { opacity: 0; }
+  .cw-window > * { position: relative; z-index: 1; }
+
+  .cw-userbubble {
+    display: inline-block;
+    background: var(--userbubble-bg);
+    border: 1px solid var(--userbubble-border);
+    color: var(--userbubble-ink);
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 14.5px;
+    max-width: 80%;
+  }
+  .cw-input {
+    background: var(--panel-2);
+    border: 1px solid var(--rule-strong);
+    border-radius: 14px;
+    padding: 14px 16px;
+    color: var(--ink);
+    font-size: 15px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+  }
+  .cw-input input, .cw-input .input-text {
+    background: transparent; border: none; outline: none; color: var(--ink);
+    flex: 1; font-size: 15px; font-family: inherit;
+  }
+  .cw-sendbtn {
+    background: var(--accent, var(--orange)); color: #fff; border: none;
+    width: 36px; height: 36px; border-radius: 10px;
+    display: grid; place-items: center; cursor: pointer;
+    transition: background .15s ease, box-shadow .2s ease;
+    box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0),
+                0 6px 16px -6px rgba(var(--accent-rgb), calc(var(--glow-k) * 0.7));
+  }
+  .cw-sendbtn:hover { box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.25); }
+  .cw-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    background: var(--panel);
+    color: var(--ink-2);
+    font-size: 12.5px;
+    border: 1px solid var(--rule);
+  }
+  .cw-codechip {
+    display: inline-block;
+    padding: 1px 6px;
+    background: var(--orange-soft);
+    color: var(--orange-ink);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  /* Accent-scoped chip tints so code chips inside a sage/straw/sky section
+     follow the section accent. */
+  .s-sage  .cw-codechip { background: var(--sage-soft);  color: var(--sage-ink); }
+  .s-straw .cw-codechip { background: var(--straw-soft); color: var(--straw-ink); }
+  .s-sky   .cw-codechip { background: var(--sky-soft);   color: var(--sky-ink); }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(10px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  .muted { color: var(--ink-3); }
+
+  /* Asterisk spin on hover */
+  .cw-asterisk { transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+  .cw-asterisk:hover { transform: rotate(180deg); }
+
+  /* Breathing animation — only on hero glow, only when glow-k > 0 */
+  @keyframes heroBreathe {
+    0%, 100% { opacity: calc(var(--glow-k) * 0.55); transform: translate(-50%, -50%) scale(1); }
+    50%      { opacity: calc(var(--glow-k) * 0.7);  transform: translate(-50%, -50%) scale(1.05); }
+  }
+  .glow.glow-breathe::before {
+    animation: heroBreathe 7s ease-in-out infinite;
+  }
+
+  /* Pulsing dot for the pricing scarcity eyebrow */
+  @keyframes ppPulse {
+    0%, 100% { opacity: 1;   transform: scale(1); }
+    50%      { opacity: 0.5; transform: scale(0.85); }
+  }
+  .pp-pulse-dot {
+    animation: ppPulse 1.6s ease-in-out infinite;
+  }
+
+  @media (max-width: 860px) {
+    .shell, .shell-wide { padding: 0 20px; }
+    .glow::before { width: 600px; height: 380px; }
+    .glow::after { width: 280px; height: 180px; }
+  }
+
+  /* ============================================================
+     RESPONSIVE OVERRIDES (mobile + tablet)
+     Inline JSX styles win on specificity, so these use !important
+     to override grid templates, gaps, paddings, and font sizes
+     on small screens. Keep selectors tight to documented hooks
+     (lp-* classes added to JSX wrappers).
+     ============================================================ */
+
+  /* Tablet — 1024px and below */
+  @media (max-width: 1024px) {
+    .lp-section { padding-top: 80px !important; padding-bottom: 80px !important; }
+    .lp-grid-3 { grid-template-columns: repeat(2, 1fr) !important; }
+    .lp-grid-3-cards { grid-template-columns: repeat(2, 1fr) !important; }
+    .lp-grid-2-bn { gap: 48px !important; }
+    .lp-grid-2-faq { gap: 48px !important; }
+    .lp-grid-2-in-main { grid-template-columns: 1fr !important; }
+    .lp-grid-2-fnd { grid-template-columns: 220px 1fr !important; gap: 40px !important; }
+  }
+
+  /* Mobile — 768px and below */
+  @media (max-width: 768px) {
+    .shell, .shell-wide { padding: 0 14px; }
+
+    .lp-section { padding-top: 64px !important; padding-bottom: 64px !important; }
+    .lp-section-tight { padding-top: 56px !important; padding-bottom: 56px !important; }
+
+    .lp-grid-3,
+    .lp-grid-3-cards,
+    .lp-grid-2-bn,
+    .lp-grid-2-faq,
+    .lp-grid-2-pri,
+    .lp-grid-2-fnd,
+    .lp-grid-2-in-main {
+      grid-template-columns: 1fr !important;
+      gap: 20px !important;
+      direction: ltr !important;
+    }
+
+    .lp-grid-2-in-main > :first-child { border-right: none !important; border-bottom: 1px solid var(--rule) !important; }
+
+    .lp-no-sticky-mobile { position: static !important; top: auto !important; }
+
+    .lp-founder-portrait { width: 140px !important; height: 168px !important; }
+    .lp-founder-portrait .serif { font-size: 64px !important; }
+
+    .lp-price-num { font-size: 48px !important; }
+
+    .lp-pains-truth { padding: 32px 24px !important; margin-top: 56px !important; }
+
+    /* Pains "messages you keep sending" divider — hide side rules so text stays one line */
+    .lp-pains-divider-rule { display: none !important; }
+
+    .lp-hero-h1 > span > span:nth-child(2) { white-space: normal !important; }
+    .lp-hero-h1 .lp-hero-line3 { display: block !important; }
+    .lp-hero-h1 { font-size: clamp(34px, 10vw, 50px) !important; }
+
+    .lp-hero-kicker { font-size: 16px !important; margin-top: 22px !important; margin-bottom: 28px !important; }
+
+    .lp-nav-links a:not(.btn) { display: none !important; }
+    .lp-nav-links { gap: 10px !important; }
+
+    .lp-trustbar { gap: 10px !important; font-size: 12.5px !important; }
+
+    .lp-counter-strip { grid-template-columns: 1fr !important; gap: 10px !important; padding: 14px 16px !important; }
+
+    .lp-inside-left, .lp-inside-right { padding: 28px 22px !important; }
+
+    .lp-benefit-window { padding: 20px 18px !important; }
+
+    .lp-faq-answer { padding-left: 28px !important; padding-right: 12px !important; }
+    .lp-faq-button { padding: 18px 4px !important; }
+    .lp-faq-q { font-size: 18px !important; }
+
+    .lp-how-card { padding: 22px 20px !important; }
+
+    .lp-meet-folder svg { width: 100px !important; height: 100px !important; }
+
+    /* Meet pillar pill — hide decorative separators, tighten gap so 3 chips fit one row */
+    .lp-meet-pill { gap: 14px !important; padding: 10px 16px !important; }
+    .lp-meet-sep { display: none !important; }
+
+    .lp-pricing-card { padding: 28px 22px !important; }
+
+    .lp-finalcta { padding: 80px 0 90px !important; }
+
+    .lp-hero-video { margin-bottom: 40px !important; }
+    .lp-hero-buttons .btn { padding: 12px 18px !important; font-size: 14px !important; }
+    .lp-hero-text-block { padding-top: 36px !important; padding-bottom: 32px !important; }
+
+    .lp-hero-toolcapsule { padding: 0.06em 0.22em 0.10em !important; margin: 0 0.04em !important; }
+
+    .lp-pricing-popular-badge { position: static !important; align-self: flex-start !important; margin-bottom: -8px !important; }
+  }
+
+  /* Small phones — 420px and below */
+  @media (max-width: 420px) {
+    .shell, .shell-wide { padding: 0 12px; }
+    .lp-section { padding-top: 52px !important; padding-bottom: 52px !important; }
+    .lp-pains-truth h3 { font-size: clamp(28px, 9vw, 36px) !important; }
+    /* Mid-mobile clamp — Turn capsule must still fit one line.
+       Tested ratio ~8.4 (line 1 width / fontSize) with reduced capsule padding,
+       so 42px max keeps "Turn Claude Cowork" within ~353px content area. */
+    .lp-hero-h1 { font-size: clamp(32px, 10.2vw, 42px) !important; }
+  }
+
+  /* ============================================================
+     SECTION DIVIDERS
+     Two modifiers: .sec-fade-top (top rule), .sec-fade-bot (bottom
+     rule). Apply only the edges that aren't covered by an adjacent
+     section — two stacked rules = visible double-weight line.
+     ============================================================ */
+  .sec-fade-top, .sec-fade-bot { position: relative; }
+  .sec-fade-top::before,
+  .sec-fade-bot::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    height: 1px;
+    pointer-events: none;
+    background: linear-gradient(to right,
+      transparent 0%,
+      rgba(58, 50, 42, 0) 8%,
+      rgba(58, 50, 42, 0.55) 35%,
+      rgba(58, 50, 42, 0.7) 50%,
+      rgba(58, 50, 42, 0.55) 65%,
+      rgba(58, 50, 42, 0) 92%,
+      transparent 100%);
+  }
+  .sec-fade-top::before { top: 0; }
+  .sec-fade-bot::after  { bottom: 0; }
+  /* Contrast-aware rule color (charcoal scheme uses cooler greys) */
+  html[data-contrast="charcoal"] .sec-fade-top::before,
+  html[data-contrast="charcoal"] .sec-fade-bot::after {
+    background: linear-gradient(to right,
+      transparent 0%,
+      rgba(52, 52, 59, 0) 8%,
+      rgba(52, 52, 59, 0.55) 35%,
+      rgba(52, 52, 59, 0.7) 50%,
+      rgba(52, 52, 59, 0.55) 65%,
+      rgba(52, 52, 59, 0) 92%,
+      transparent 100%);
+  }
+</style>
+</head>
+<body class="hl-on">
+  <div class="bg-layer">
+    <div class="bg-vignette"></div>
+  </div>
+  <div id="root"></div>
+
+  <script>
+    window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
+      "pillStyle": "lumen",
+      "pillColor": "sky",
+      "painsHalo": 50
+    }/*EDITMODE-END*/;
+  </script>
+
+  <script type="text/babel" data-presets="react" src="src5/data.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src5/primitives.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src5/coworkchip.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src5/chat.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src5/hero_centered.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src5/trustbar.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src5/pains.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src5/meet.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src5/benefits.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src5/howitworks.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src5/inside.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src5/forwho.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src5/founder.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src5/pricing.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src5/faq.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src5/finalcta.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src5/tweaks.jsx"></script>
+  <script type="text/babel" data-presets="react" src="src5/app.jsx"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 68" fill="none">
+  
+  <path d="M4 12c0-2.2 1.8-4 4-4h22l6 6h36c2.2 0 4 1.8 4 4v4H4V12z" fill="#CC785C" stroke="#CC785C" stroke-width="1" stroke-linejoin="round"></path>
+  
+  <rect x="4" y="16" width="72" height="46" rx="6" fill="#1A1713" stroke="rgba(204,120,92,0.85)" stroke-width="2.4"></rect>
+  
+  <rect x="4" y="22" width="72" height="1.5" fill="rgba(204,120,92,0.16)"></rect>
+  
+  <g transform="translate(40,41)">
+    <line x1="0" y1="-1.4" x2="0" y2="-11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"></line>
+    <line x1="1.22" y1="-0.7" x2="9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"></line>
+    <line x1="1.22" y1="0.7" x2="9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"></line>
+    <line x1="0" y1="1.4" x2="0" y2="11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"></line>
+    <line x1="-1.22" y1="0.7" x2="-9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"></line>
+    <line x1="-1.22" y1="-0.7" x2="-9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"></line>
+  </g>
+</svg>

@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Cowork OS — Logo Guidelines</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0A0A0B; --bg-2:#101012; --bg-3:#16161A;
+    --panel:#18181B; --panel-2:#222227;
+    --rule:#26262B; --rule-strong:#34343B;
+    --ink:#F4F4F5; --ink-2:#D4D4D8; --ink-3:#8E8E95; --ink-4:#5E5E66;
+    --orange:#CC785C; --orange-ink:#E5A088;
+  }
+  * { box-sizing:border-box; }
+  html,body { margin:0; padding:0; background:var(--bg); color:var(--ink); }
+  body { font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; line-height:1.55; }
+
+  .page { max-width:960px; margin:0 auto; padding:64px 32px 120px; }
+
+  .pg-header { margin-bottom:72px; border-bottom:1px solid var(--rule); padding-bottom:40px; }
+  .pg-header h1 { font-family:'Instrument Serif',serif; font-size:36px; font-weight:400; margin:0 0 8px; letter-spacing:-0.02em; }
+  .pg-header .sub { font-size:14px; color:var(--ink-3); margin:0; }
+  .pg-header .version { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--ink-4); letter-spacing:0.1em; margin-top:16px; }
+
+  .sec { font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-4);
+         font-family:'JetBrains Mono',monospace; margin-bottom:20px;
+         display:flex; align-items:center; gap:10px; }
+  .sec::before { content:''; width:18px; height:1px; background:var(--orange); display:inline-block; }
+
+  .block { margin-bottom:56px; }
+
+  .spec-row { display:flex; gap:2px; margin-bottom:2px; }
+  .spec-cell { background:var(--bg-2); border:1px solid var(--rule); padding:20px 22px; flex:1; }
+  .spec-label { font-family:'JetBrains Mono',monospace; font-size:8.5px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-4); margin-bottom:10px; }
+  .spec-val { font-size:13px; color:var(--ink-2); }
+  .spec-val strong { color:var(--ink); font-weight:500; }
+  .spec-val code { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--orange-ink); background:rgba(204,120,92,0.1); padding:1px 5px; border-radius:3px; }
+
+  .sizes-showcase { display:flex; align-items:flex-end; gap:28px; padding:28px 28px; background:var(--bg-2); border:1px solid var(--rule); flex-wrap:wrap; }
+  .sz-item { display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .sz-lbl { font-family:'JetBrains Mono',monospace; font-size:8px; letter-spacing:0.09em; text-transform:uppercase; color:var(--ink-4); }
+
+  .fav-wrap { width:32px; height:32px; background:var(--bg-3); border:1px solid var(--rule-strong); border-radius:6px; display:grid; place-items:center; }
+  .fav-wrap.light { background:#f0ece6; }
+
+  .usage-row { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+  .usage-cell { background:var(--bg-2); border:1px solid var(--rule); padding:24px 22px; }
+  .usage-cell .u-label { font-family:'JetBrains Mono',monospace; font-size:8.5px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-4); margin-bottom:16px; }
+  .mock-nav { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:var(--bg-3); border:1px solid var(--rule-strong); border-radius:8px; }
+  .mock-foot { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; background:var(--bg-3); border:1px solid var(--rule); border-radius:8px; margin-top:8px; }
+  .serif { font-family:'Instrument Serif',serif; }
+
+  .donts { display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px; }
+  .dont-cell { background:var(--bg-2); border:1px solid var(--rule); padding:20px 20px 16px; }
+  .dont-cell .d-label { font-family:'JetBrains Mono',monospace; font-size:8px; letter-spacing:0.1em; text-transform:uppercase; color:#d97757; margin-bottom:12px; display:flex; align-items:center; gap:6px; }
+  .dont-cell .d-label::before { content:'✕'; font-size:9px; }
+  .dont-cell .d-desc { font-size:11.5px; color:var(--ink-3); margin-top:10px; line-height:1.5; }
+
+  .swatches { display:flex; gap:2px; flex-wrap:wrap; }
+  .swatch { padding:16px 18px; flex:1; min-width:160px; background:var(--bg-2); border:1px solid var(--rule); }
+  .swatch-dot { width:32px; height:32px; border-radius:6px; margin-bottom:10px; }
+  .swatch-name { font-size:12.5px; font-weight:500; margin-bottom:2px; }
+  .swatch-hex { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-4); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="pg-header">
+    <p style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;color:var(--orange);text-transform:uppercase;margin:0 0 12px;">Cowork OS · Brand</p>
+    <h1>Logo Guidelines</h1>
+    <p class="sub">Référence de l'identité visuelle du logo — grand format et icon-size. Usage dans la nav, le footer, favicon et communications.</p>
+    <p class="version">Version 1.0 · Mai 2026</p>
+  </div>
+
+  <!-- ─── 1. LES DEUX LOGOS ─── -->
+  <div class="block">
+    <div class="sec">Les deux versions du logo</div>
+    <div class="spec-row">
+
+      <!-- Grand format -->
+      <div class="spec-cell" style="flex:1.2">
+        <div class="spec-label">Grand format · BrandedFolder</div>
+        <div style="margin:24px 0 20px;display:flex;justify-content:center;">
+          <!--
+            Sparkle exacte du composant BrandedFolder (coworkchip.jsx) :
+            12 rayons à 30° · i%3==0 = long (r1=1.6, r2=11) · sinon court (r1=2, r2=8.5)
+            stroke #CC785C · stroke-width 1.9 · round linecap
+          -->
+          <svg width="120" height="101" viewBox="0 0 80 68" fill="none" style="filter:drop-shadow(0 0 18px rgba(204,120,92,0.38)) drop-shadow(0 0 4px rgba(204,120,92,0.5))">
+            <!-- Copie exacte du BrandedFolder (coworkchip.jsx) avec valeurs charcoal hardcodées -->
+            <!-- Back tab -->
+            <path d="M4 12c0-2.2 1.8-4 4-4h22l6 6h36c2.2 0 4 1.8 4 4v4H4V12z"
+              fill="#222227" stroke="rgba(204,120,92,0.55)" stroke-width="1.4" stroke-linejoin="round"/>
+            <!-- Front face -->
+            <rect x="4" y="16" width="72" height="46" rx="6"
+              fill="#16161A" stroke="rgba(204,120,92,0.55)" stroke-width="1.4"/>
+            <!-- Highlight edge -->
+            <rect x="4" y="16" width="72" height="2" fill="#222227"/>
+            <!-- Sparkle 12 rayons (i%3=0 long r2=11, sinon court r2=8.5) -->
+            <g transform="translate(40,41)">
+              <line x1="1.6"     y1="0"       x2="11"      y2="0"       stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="1.7321"  y1="1"       x2="7.3612"  y2="4.25"    stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="1"       y1="1.7321"  x2="4.25"    y2="7.3612"  stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="0"       y1="1.6"     x2="0"       y2="11"      stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="-1"      y1="1.7321"  x2="-4.25"   y2="7.3612"  stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="-1.7321" y1="1"       x2="-7.3612" y2="4.25"    stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="-1.6"    y1="0"       x2="-11"     y2="0"       stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="-1.7321" y1="-1"      x2="-7.3612" y2="-4.25"   stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="-1"      y1="-1.7321" x2="-4.25"   y2="-7.3612" stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="0"       y1="-1.6"    x2="0"       y2="-11"     stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="1"       y1="-1.7321" x2="4.25"    y2="-7.3612" stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="1.7321"  y1="-1"      x2="7.3612"  y2="-4.25"   stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+        <div class="spec-val">Utilisé dans les sections <strong>Meet</strong> et <strong>The System</strong>. Riche, détaillé — expressif en grand format. Sparkle 12 rayons (4 longs, 8 courts), fond sombre, contours subtils.</div>
+      </div>
+
+      <!-- Icon-size -->
+      <div class="spec-cell" style="flex:1">
+        <div class="spec-label">Icon-size · LogoIcon</div>
+        <div style="margin:24px 0 20px;display:flex;justify-content:center;align-items:center;gap:28px;">
+          <svg width="64" height="54" viewBox="0 0 80 68" fill="none" style="filter:drop-shadow(0 0 10px rgba(204,120,92,0.48))">
+            <path d="M4 12c0-2.2 1.8-4 4-4h22l6 6h36c2.2 0 4 1.8 4 4v4H4V12z" fill="#CC785C" stroke="#CC785C" stroke-width="1" stroke-linejoin="round"/>
+            <rect x="4" y="16" width="72" height="46" rx="6" fill="#1A1713" stroke="rgba(204,120,92,0.85)" stroke-width="2.4"/>
+            <rect x="4" y="22" width="72" height="1.5" fill="rgba(204,120,92,0.16)"/>
+            <g transform="translate(40,41)">
+              <line x1="0" y1="-1.4" x2="0" y2="-11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/>
+              <line x1="1.22" y1="-0.7" x2="9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/>
+              <line x1="1.22" y1="0.7" x2="9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/>
+              <line x1="0" y1="1.4" x2="0" y2="11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/>
+              <line x1="-1.22" y1="0.7" x2="-9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/>
+              <line x1="-1.22" y1="-0.7" x2="-9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/>
+            </g>
+          </svg>
+          <svg width="32" height="27" viewBox="0 0 80 68" fill="none">
+            <path d="M4 12c0-2.2 1.8-4 4-4h22l6 6h36c2.2 0 4 1.8 4 4v4H4V12z" fill="#CC785C" stroke="#CC785C" stroke-width="1" stroke-linejoin="round"/>
+            <rect x="4" y="16" width="72" height="46" rx="6" fill="#1A1713" stroke="rgba(204,120,92,0.85)" stroke-width="2.4"/>
+            <g transform="translate(40,41)">
+              <line x1="0" y1="-1.4" x2="0" y2="-11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/>
+              <line x1="1.22" y1="-0.7" x2="9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/>
+              <line x1="1.22" y1="0.7" x2="9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/>
+              <line x1="0" y1="1.4" x2="0" y2="11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/>
+              <line x1="-1.22" y1="0.7" x2="-9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/>
+              <line x1="-1.22" y1="-0.7" x2="-9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+        <div class="spec-val">Utilisé dans la <strong>nav</strong> et le <strong>footer</strong>. Sparkle 6 rayons blancs, tab orange plein, contour épais. Conçu pour être lisible à 24–32px.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── 2. SPÉCIFICATIONS LOGOICON ─── -->
+  <div class="block">
+    <div class="sec">Spécifications — LogoIcon</div>
+    <div class="spec-row">
+      <div class="spec-cell">
+        <div class="spec-label">Tab (languette)</div>
+        <div class="spec-val"><code>#CC785C</code> plein · stroke identique · <strong>identifie la forme dossier</strong></div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Face</div>
+        <div class="spec-val">Fond <code>#1A1713</code> · contour <code>rgba(204,120,92,0.85)</code> · stroke <strong>2.4px</strong></div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Sparkle</div>
+        <div class="spec-val"><strong>6 rayons</strong> · <code>rgba(255,255,255,0.90)</code> · stroke <strong>2.8px</strong> · round caps</div>
+      </div>
+    </div>
+    <div class="spec-row" style="margin-top:2px;">
+      <div class="spec-cell">
+        <div class="spec-label">Glow (nav uniquement)</div>
+        <div class="spec-val"><code>drop-shadow(0 0 6px rgba(204,120,92,0.48))</code><br/><code>drop-shadow(0 0 2px rgba(204,120,92,0.3))</code></div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Viewbox SVG</div>
+        <div class="spec-val"><code>0 0 80 68</code> · ratio <strong>80:68 ≈ 1.18</strong></div>
+      </div>
+      <div class="spec-cell">
+        <div class="spec-label">Composant React</div>
+        <div class="spec-val"><code>LogoIcon</code> dans <code>src5/coworkchip.jsx</code><br/>Props : <code>size</code> (défaut 30) · <code>glow</code> (bool)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 3. TAILLES ─── -->
+  <div class="block">
+    <div class="sec">Tailles recommandées</div>
+    <div class="sizes-showcase">
+      <div class="sz-item">
+        <svg width="48" height="40" viewBox="0 0 80 68" fill="none" style="filter:drop-shadow(0 0 8px rgba(204,120,92,0.48))">
+          <path d="M4 12c0-2.2 1.8-4 4-4h22l6 6h36c2.2 0 4 1.8 4 4v4H4V12z" fill="#CC785C" stroke="#CC785C" stroke-width="1" stroke-linejoin="round"/>
+          <rect x="4" y="16" width="72" height="46" rx="6" fill="#1A1713" stroke="rgba(204,120,92,0.85)" stroke-width="2.4"/>
+          <rect x="4" y="22" width="72" height="1.5" fill="rgba(204,120,92,0.16)"/>
+          <g transform="translate(40,41)"><line x1="0" y1="-1.4" x2="0" y2="-11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="-0.7" x2="9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="0.7" x2="9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="0" y1="1.4" x2="0" y2="11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="0.7" x2="-9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="-0.7" x2="-9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/></g>
+        </svg>
+        <span class="sz-lbl">48px</span>
+      </div>
+      <div class="sz-item">
+        <svg width="32" height="27" viewBox="0 0 80 68" fill="none" style="filter:drop-shadow(0 0 6px rgba(204,120,92,0.48))">
+          <path d="M4 12c0-2.2 1.8-4 4-4h22l6 6h36c2.2 0 4 1.8 4 4v4H4V12z" fill="#CC785C" stroke="#CC785C" stroke-width="1" stroke-linejoin="round"/>
+          <rect x="4" y="16" width="72" height="46" rx="6" fill="#1A1713" stroke="rgba(204,120,92,0.85)" stroke-width="2.4"/>
+          <rect x="4" y="22" width="72" height="1.5" fill="rgba(204,120,92,0.16)"/>
+          <g transform="translate(40,41)"><line x1="0" y1="-1.4" x2="0" y2="-11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="-0.7" x2="9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="0.7" x2="9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="0" y1="1.4" x2="0" y2="11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="0.7" x2="-9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="-0.7" x2="-9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/></g>
+        </svg>
+        <span class="sz-lbl">32px · nav ↑</span>
+      </div>
+      <div class="sz-item">
+        <svg width="24" height="20" viewBox="0 0 80 68" fill="none">
+          <path d="M4 12c0-2.2 1.8-4 4-4h22l6 6h36c2.2 0 4 1.8 4 4v4H4V12z" fill="#CC785C" stroke="#CC785C" stroke-width="1" stroke-linejoin="round"/>
+          <rect x="4" y="16" width="72" height="46" rx="6" fill="#1A1713" stroke="rgba(204,120,92,0.85)" stroke-width="2.4"/>
+          <g transform="translate(40,41)"><line x1="0" y1="-1.4" x2="0" y2="-11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="-0.7" x2="9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="0.7" x2="9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="0" y1="1.4" x2="0" y2="11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="0.7" x2="-9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="-0.7" x2="-9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/></g>
+        </svg>
+        <span class="sz-lbl">24px · footer ↑</span>
+      </div>
+      <div class="sz-item">
+        <svg width="16" height="13" viewBox="0 0 80 68" fill="none">
+          <path d="M4 12c0-2.2 1.8-4 4-4h22l6 6h36c2.2 0 4 1.8 4 4v4H4V12z" fill="#CC785C" stroke="#CC785C" stroke-width="1" stroke-linejoin="round"/>
+          <rect x="4" y="16" width="72" height="46" rx="6" fill="#1A1713" stroke="rgba(204,120,92,0.85)" stroke-width="2.4"/>
+          <g transform="translate(40,41)"><line x1="0" y1="-1.4" x2="0" y2="-11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="-0.7" x2="9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="0.7" x2="9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="0" y1="1.4" x2="0" y2="11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="0.7" x2="-9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="-0.7" x2="-9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/></g>
+        </svg>
+        <span class="sz-lbl">16px · min</span>
+      </div>
+      <div class="sz-item">
+        <div class="fav-wrap">
+          <svg width="20" height="17" viewBox="0 0 80 68" fill="none">
+            <path d="M4 12c0-2.2 1.8-4 4-4h22l6 6h36c2.2 0 4 1.8 4 4v4H4V12z" fill="#CC785C" stroke="#CC785C" stroke-width="1" stroke-linejoin="round"/>
+            <rect x="4" y="16" width="72" height="46" rx="6" fill="#1A1713" stroke="rgba(204,120,92,0.85)" stroke-width="2.4"/>
+            <g transform="translate(40,41)"><line x1="0" y1="-1.4" x2="0" y2="-11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="-0.7" x2="9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="0.7" x2="9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="0" y1="1.4" x2="0" y2="11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="0.7" x2="-9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="-0.7" x2="-9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/></g>
+          </svg>
+        </div>
+        <span class="sz-lbl">Favicon · dark</span>
+      </div>
+      <div class="sz-item">
+        <div class="fav-wrap light">
+          <svg width="20" height="17" viewBox="0 0 80 68" fill="none">
+            <path d="M4 12c0-2.2 1.8-4 4-4h22l6 6h36c2.2 0 4 1.8 4 4v4H4V12z" fill="#CC785C" stroke="#CC785C" stroke-width="1" stroke-linejoin="round"/>
+            <rect x="4" y="16" width="72" height="46" rx="6" fill="#1A1713" stroke="rgba(204,120,92,0.85)" stroke-width="2.4"/>
+            <g transform="translate(40,41)"><line x1="0" y1="-1.4" x2="0" y2="-11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="-0.7" x2="9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="0.7" x2="9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="0" y1="1.4" x2="0" y2="11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="0.7" x2="-9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="-0.7" x2="-9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/></g>
+          </svg>
+        </div>
+        <span class="sz-lbl">Favicon · light</span>
+      </div>
+    </div>
+    <div style="margin-top:2px;padding:14px 18px;background:var(--bg-2);border:1px solid var(--rule);font-size:12px;color:var(--ink-4);">
+      Taille minimale recommandée : <strong style="color:var(--ink-3)">16px</strong>. En dessous, utiliser un carré plein orange comme fallback.
+    </div>
+  </div>
+
+  <!-- ─── 4. USAGE EN CONTEXTE ─── -->
+  <div class="block">
+    <div class="sec">Usage en contexte</div>
+    <div class="usage-row">
+      <div class="usage-cell">
+        <div class="u-label">Navigation · size=30 · glow=true</div>
+        <div class="mock-nav">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <svg width="30" height="25" viewBox="0 0 80 68" fill="none" style="filter:drop-shadow(0 0 6px rgba(204,120,92,0.48)) drop-shadow(0 0 2px rgba(204,120,92,0.3))">
+              <path d="M4 12c0-2.2 1.8-4 4-4h22l6 6h36c2.2 0 4 1.8 4 4v4H4V12z" fill="#CC785C" stroke="#CC785C" stroke-width="1" stroke-linejoin="round"/>
+              <rect x="4" y="16" width="72" height="46" rx="6" fill="#1A1713" stroke="rgba(204,120,92,0.85)" stroke-width="2.4"/>
+              <rect x="4" y="22" width="72" height="1.5" fill="rgba(204,120,92,0.16)"/>
+              <g transform="translate(40,41)"><line x1="0" y1="-1.4" x2="0" y2="-11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="-0.7" x2="9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="0.7" x2="9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="0" y1="1.4" x2="0" y2="11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="0.7" x2="-9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="-0.7" x2="-9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/></g>
+            </svg>
+            <span class="serif" style="font-size:20px;">Cowork OS</span>
+          </div>
+          <div style="display:flex;gap:14px;font-size:12px;color:var(--ink-3);">
+            <span>What it does</span><span>Pricing</span>
+            <span style="background:var(--orange);color:#fff;padding:6px 11px;border-radius:7px;font-size:12px;font-weight:500;">Get access →</span>
+          </div>
+        </div>
+      </div>
+      <div class="usage-cell">
+        <div class="u-label">Footer · size=24 · glow=false</div>
+        <div class="mock-foot">
+          <div style="display:flex;align-items:center;gap:9px;">
+            <svg width="24" height="20" viewBox="0 0 80 68" fill="none">
+              <path d="M4 12c0-2.2 1.8-4 4-4h22l6 6h36c2.2 0 4 1.8 4 4v4H4V12z" fill="#CC785C" stroke="#CC785C" stroke-width="1" stroke-linejoin="round"/>
+              <rect x="4" y="16" width="72" height="46" rx="6" fill="#1A1713" stroke="rgba(204,120,92,0.85)" stroke-width="2.4"/>
+              <g transform="translate(40,41)"><line x1="0" y1="-1.4" x2="0" y2="-11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="-0.7" x2="9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="0.7" x2="9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="0" y1="1.4" x2="0" y2="11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="0.7" x2="-9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="-0.7" x2="-9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/></g>
+            </svg>
+            <div>
+              <div class="serif" style="font-size:16px;">Cowork OS</div>
+              <div style="font-size:10px;color:var(--ink-4);margin-top:1px;">cowork-os.com · a coworker for Claude</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;font-size:11.5px;color:var(--ink-4);">
+            <span>What it does</span><span>Pricing</span><span>FAQ</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 5. COULEURS ─── -->
+  <div class="block">
+    <div class="sec">Couleurs du logo</div>
+    <div class="swatches">
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#CC785C;"></div>
+        <div class="swatch-name">Orange</div>
+        <div class="swatch-hex">#CC785C</div>
+        <div style="font-size:11px;color:var(--ink-4);margin-top:4px;">Tab · var(--orange)</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-dot" style="background:#1A1713;border:1px solid rgba(204,120,92,0.3);"></div>
+        <div class="swatch-name">Face sombre</div>
+        <div class="swatch-hex">#1A1713</div>
+        <div style="font-size:11px;color:var(--ink-4);margin-top:4px;">Corps du dossier</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-dot" style="background:rgba(204,120,92,0.85);"></div>
+        <div class="swatch-name">Contour face</div>
+        <div class="swatch-hex">rgba(204,120,92,0.85)</div>
+        <div style="font-size:11px;color:var(--ink-4);margin-top:4px;">stroke-width 2.4px</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-dot" style="background:rgba(255,255,255,0.9);border:1px solid var(--rule-strong);"></div>
+        <div class="swatch-name">Sparkle</div>
+        <div class="swatch-hex">rgba(255,255,255,0.90)</div>
+        <div style="font-size:11px;color:var(--ink-4);margin-top:4px;">6 rayons · sw 2.8px</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 6. À ÉVITER ─── -->
+  <div class="block">
+    <div class="sec">À éviter</div>
+    <div class="donts">
+      <div class="dont-cell">
+        <div class="d-label">BrandedFolder en nav</div>
+        <div style="opacity:.45;margin:8px 0;">
+          <svg width="30" height="25" viewBox="0 0 80 68" fill="none">
+            <path d="M4 12c0-2.2 1.8-4 4-4h22l6 6h36c2.2 0 4 1.8 4 4v4H4V12z" fill="#222227" stroke="rgba(204,120,92,0.55)" stroke-width="1.4" stroke-linejoin="round"/>
+            <rect x="4" y="16" width="72" height="46" rx="6" fill="#16161A" stroke="rgba(204,120,92,0.55)" stroke-width="1.4"/>
+            <g transform="translate(40,41)">
+              <line x1="1.6" y1="0" x2="11" y2="0" stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="1.7321" y1="1" x2="7.3612" y2="4.25" stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="1" y1="1.7321" x2="4.25" y2="7.3612" stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="0" y1="1.6" x2="0" y2="11" stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="-1" y1="1.7321" x2="-4.25" y2="7.3612" stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="-1.7321" y1="1" x2="-7.3612" y2="4.25" stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="-1.6" y1="0" x2="-11" y2="0" stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="-1.7321" y1="-1" x2="-7.3612" y2="-4.25" stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="-1" y1="-1.7321" x2="-4.25" y2="-7.3612" stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="0" y1="-1.6" x2="0" y2="-11" stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="1" y1="-1.7321" x2="4.25" y2="-7.3612" stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+              <line x1="1.7321" y1="-1" x2="7.3612" y2="-4.25" stroke="#CC785C" stroke-width="1.9" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+        <div class="d-desc">Le BrandedFolder (12 rayons fins) est trop détaillé à 30px — peu lisible, indistinct. Réserver aux sections grandes.</div>
+      </div>
+      <div class="dont-cell">
+        <div class="d-label">LogoIcon sous 16px</div>
+        <div style="margin:8px 0;opacity:.45;">
+          <svg width="10" height="8" viewBox="0 0 80 68" fill="none">
+            <path d="M4 12c0-2.2 1.8-4 4-4h22l6 6h36c2.2 0 4 1.8 4 4v4H4V12z" fill="#CC785C" stroke="#CC785C" stroke-width="1" stroke-linejoin="round"/>
+            <rect x="4" y="16" width="72" height="46" rx="6" fill="#1A1713" stroke="rgba(204,120,92,0.85)" stroke-width="2.4"/>
+            <g transform="translate(40,41)"><line x1="0" y1="-1.4" x2="0" y2="-11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="-0.7" x2="9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="0.7" x2="9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="0" y1="1.4" x2="0" y2="11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="0.7" x2="-9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="-0.7" x2="-9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/></g>
+          </svg>
+        </div>
+        <div class="d-desc">En dessous de 16px les rayons se confondent. Utiliser un carré arrondi orange comme fallback.</div>
+      </div>
+      <div class="dont-cell">
+        <div class="d-label">Asterisk seule en logo</div>
+        <div style="margin:8px 0;opacity:.45;">
+          <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+            <g transform="translate(16,16)">
+              <line x1="0" y1="-2" x2="0" y2="-13" stroke="#CC785C" stroke-width="2.4" stroke-linecap="round"/>
+              <line x1="1.73" y1="-1" x2="11.26" y2="-6.5" stroke="#CC785C" stroke-width="2.4" stroke-linecap="round"/>
+              <line x1="1.73" y1="1" x2="11.26" y2="6.5" stroke="#CC785C" stroke-width="2.4" stroke-linecap="round"/>
+              <line x1="0" y1="2" x2="0" y2="13" stroke="#CC785C" stroke-width="2.4" stroke-linecap="round"/>
+              <line x1="-1.73" y1="1" x2="-11.26" y2="6.5" stroke="#CC785C" stroke-width="2.4" stroke-linecap="round"/>
+              <line x1="-1.73" y1="-1" x2="-11.26" y2="-6.5" stroke="#CC785C" stroke-width="2.4" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+        <div class="d-desc">L'Asterisk seule ne référence pas l'identité Cowork OS dans les zones nav/footer. La réserver aux titres de section et CTA.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 7. FAVICON ─── -->
+  <div class="block">
+    <div class="sec">Favicon</div>
+    <div style="display:flex;gap:2px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:200px;background:var(--bg-2);border:1px solid var(--rule);padding:22px 20px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:14px;">Recommandé · SVG favicon</div>
+        <div style="display:flex;gap:16px;align-items:center;margin-bottom:14px;">
+          <div style="width:32px;height:32px;background:#0A0A0B;border:1px solid var(--rule-strong);border-radius:4px;display:grid;place-items:center;">
+            <svg width="20" height="17" viewBox="0 0 80 68" fill="none"><path d="M4 12c0-2.2 1.8-4 4-4h22l6 6h36c2.2 0 4 1.8 4 4v4H4V12z" fill="#CC785C" stroke="#CC785C" stroke-width="1" stroke-linejoin="round"/><rect x="4" y="16" width="72" height="46" rx="6" fill="#1A1713" stroke="rgba(204,120,92,0.85)" stroke-width="2.4"/><g transform="translate(40,41)"><line x1="0" y1="-1.4" x2="0" y2="-11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="-0.7" x2="9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="0.7" x2="9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="0" y1="1.4" x2="0" y2="11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="0.7" x2="-9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="-0.7" x2="-9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/></g></svg>
+          </div>
+          <div style="width:16px;height:16px;background:#0A0A0B;border:1px solid var(--rule-strong);border-radius:3px;display:grid;place-items:center;">
+            <svg width="11" height="9" viewBox="0 0 80 68" fill="none"><path d="M4 12c0-2.2 1.8-4 4-4h22l6 6h36c2.2 0 4 1.8 4 4v4H4V12z" fill="#CC785C" stroke="#CC785C" stroke-width="1" stroke-linejoin="round"/><rect x="4" y="16" width="72" height="46" rx="6" fill="#1A1713" stroke="rgba(204,120,92,0.85)" stroke-width="2.4"/><g transform="translate(40,41)"><line x1="0" y1="-1.4" x2="0" y2="-11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="-0.7" x2="9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="0.7" x2="9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="0" y1="1.4" x2="0" y2="11.5" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="0.7" x2="-9.96" y2="5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="-0.7" x2="-9.96" y2="-5.75" stroke="rgba(255,255,255,0.90)" stroke-width="2.8" stroke-linecap="round"/></g></svg>
+          </div>
+        </div>
+        <div style="font-size:12px;color:var(--ink-3);line-height:1.6;">Utiliser le <code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--orange-ink);background:rgba(204,120,92,0.1);padding:1px 4px;border-radius:3px;">LogoIcon</code> SVG exporté comme <code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--orange-ink);background:rgba(204,120,92,0.1);padding:1px 4px;border-radius:3px;">favicon.svg</code> — les navigateurs modernes le supportent nativement.</div>
+      </div>
+      <div style="flex:1;min-width:200px;background:var(--bg-2);border:1px solid var(--rule);padding:22px 20px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:14px;">Fallback ICO · carré orange</div>
+        <div style="display:flex;gap:16px;align-items:center;margin-bottom:14px;">
+          <div style="width:32px;height:32px;background:#CC785C;border-radius:6px;display:grid;place-items:center;">
+            <svg width="16" height="14" viewBox="0 0 80 68" fill="none"><path d="M4 12c0-2.2 1.8-4 4-4h22l6 6h36c2.2 0 4 1.8 4 4v4H4V12z" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.3)" stroke-width="1" stroke-linejoin="round"/><rect x="4" y="16" width="72" height="46" rx="6" fill="rgba(0,0,0,0.35)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/><g transform="translate(40,41)"><line x1="0" y1="-1.4" x2="0" y2="-11.5" stroke="rgba(255,255,255,0.95)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="-0.7" x2="9.96" y2="-5.75" stroke="rgba(255,255,255,0.95)" stroke-width="2.8" stroke-linecap="round"/><line x1="1.22" y1="0.7" x2="9.96" y2="5.75" stroke="rgba(255,255,255,0.95)" stroke-width="2.8" stroke-linecap="round"/><line x1="0" y1="1.4" x2="0" y2="11.5" stroke="rgba(255,255,255,0.95)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="0.7" x2="-9.96" y2="5.75" stroke="rgba(255,255,255,0.95)" stroke-width="2.8" stroke-linecap="round"/><line x1="-1.22" y1="-0.7" x2="-9.96" y2="-5.75" stroke="rgba(255,255,255,0.95)" stroke-width="2.8" stroke-linecap="round"/></g></svg>
+          </div>
+        </div>
+        <div style="font-size:12px;color:var(--ink-3);line-height:1.6;">Pour les navigateurs anciens ou le <code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--orange-ink);background:rgba(204,120,92,0.1);padding:1px 4px;border-radius:3px;">.ico</code> requis : fond orange <code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--orange-ink);background:rgba(204,120,92,0.1);padding:1px 4px;border-radius:3px;">#CC785C</code> + sparkle blanche.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

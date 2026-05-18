@@ -284,11 +284,11 @@ const FAQS = [
   // Added from v2
   {
     q: "Does it work with Claude Code too?",
-    a: "Yes. The underlying structure is compatible with both Claude Cowork and Claude Code. The primary target for v1 is Cowork, for non-technical solo operators."
+    a: "Cowork OS is built for Claude Cowork. The tutorials and setup guide are written for it. If you prefer Claude Code, the file structure works the same way — but you'll be on your own for the configuration steps."
   },
   {
-    q: "French version?",
-    a: "Planned. Not in v1. The system itself works in any language — only the docs and setup are English at launch."
+    q: "Does it work in other languages?",
+    a: "Yes. Claude responds in whatever language you write in. The template, setup guide, and tutorials are in English — but nothing stops you from running the system in French, Spanish, or any other language."
   },
 ];
 

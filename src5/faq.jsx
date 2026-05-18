@@ -24,7 +24,7 @@ function FAQ({ state }) {
                 Before <em className="ital">you buy.</em>
               </h2>
               <p style={{ color: 'var(--ink-3)', fontSize: 15, margin: 0, lineHeight: 1.55 }}>
-                The things people ask me. Still stuck? <a href="mailto:quentin@cowork-os.com" className="link-u">Email me</a>.
+                The things people ask me. Still stuck? <a href="mailto:hello@cowork-os.com?subject=Question before buying" className="link-u">Email me</a>.
               </p>
             </div>
           </Reveal>

@@ -4,7 +4,7 @@
 const TRUST_ORDERED = [
   "Built by Quentin Villard",
   "Notion and AI builder",
-  "40,000+ templates rated 4.9★",
+  "41,000+ templates rated 4.9★",
 ];
 
 function TrustBar() {

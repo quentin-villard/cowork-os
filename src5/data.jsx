@@ -4,7 +4,7 @@
 
 const TRUST_ITEMS = [
   "Built by Quentin Villard",
-  "40,000+ templates rated 4.9★",
+  "41,000+ templates rated 4.9★",
   "Notion and AI builder",
 ];
 
@@ -228,28 +228,29 @@ const INSIDE_BONUS = [
 ];
 
 const FOR_YOU = [
-  "You use Claude already, but it doesn't feel fully yours yet.",
-  "You run the show alone — solopreneur, consultant, freelance, creator.",
-  "You know your voice, your judgment, your perspective is what makes your work valuable.",
-  "You want a system you can shape and make your own.",
-  "You want every draft Claude produces to sound like you wrote it.",
+  "You use Claude or ChatGPT, but output never quite lands.",
+  "You want an AI that actually knows you, not one you brief daily.",
+  "You wear every hat and need AI that pulls real weight.",
+  "You know AI could do more for you. You haven't cracked it.",
+  "You want a simple system you can shape and make your own.",
 ];
 const NOT_FOR_YOU = [
   "You're waiting for AI to run your business while you sleep.",
-  "You're after code, APIs, or developer tooling.",
-  "You'd rather Claude did your thinking for you.",
+  "You want autonomous agents that ship work without your input.",
   "You think your case is too special for any system to work.",
-  "You won't spare 15 minutes to set it up.",
+  "You work in a big corp or regulated field with locked-down AI.",
+  "You won't spare 15 minutes to set your system up.",
 ];
 
 const FOUNDER_PARAGRAPHS = [
-  "Before Claude, I was using ChatGPT every day. I tried everything: custom GPTs, projects, long prompts. But I always ended up rewriting outputs, adding more context, reminding ChatGPT of things it had forgotten.",
-  "Three months ago, Claude Cowork came out.",
-  "I spent days studying how creators were building their setups. Some were barely systems. Others were so complex I knew I'd never stick with them. So I started building my own, draft after draft on my actual projects, until I had something that held up.",
-  "The first time it really clicked: replying to a complex client email. Claude pulled together my voice, my context, my full Gmail history with the client. It drafted the reply in seconds — and it sounded exactly like me.",
-  "This isn't my first system. I've been building templates at Notion Everything for three years; 40,000+ people use them today. Those systems are great for organizing information. Now with Claude, I finally have one that executes too.",
-  "Cowork OS follows my usual principles: lean, pedagogical, no hype. I've been using it every day.",
-  "If you want one of your own, it's right below.",
+  "Before Claude, I was using ChatGPT every day.",
+  "I tried everything: custom GPTs, projects, long prompts. But I always ended up rewriting outputs, adding more context, reminding ChatGPT of things it had forgotten.",
+  "Then, Claude Cowork came out.",
+  "I spent months studying how creators were building their setups. Some were barely systems. Others were way too complex. So I started building my own, draft after draft on my actual projects, until I had something that held up.",
+  "The first time it really clicked: replying to a complex client email. Claude pulled together my voice, my context, my Gmail history with the client, and drafted the reply in seconds. It read exactly like I wrote it. I didn't.",
+  "Well, that's Cowork OS.",
+  "And it's not my first shot. I've been building templates for Notion for 3 years (41,000+ people use them today). Those systems are great for organization.",
+  "Now with Cowork OS and Claude, I have one that executes too.",
 ];
 
 const FAQS = [
@@ -279,7 +280,7 @@ const FAQS = [
   },
   {
     q: "Do I get updates?",
-    a: "Yes. Everyone gets minor updates under the same version. Founding Members get free access to all future updates, including major versions."
+    a: "Yes. Every buyer gets free access to all future updates, including major versions."
   },
   // Added from v2
   {

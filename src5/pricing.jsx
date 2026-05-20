@@ -17,22 +17,22 @@ const PRICING_PLANS = {
   selfServe: {
     name: 'Cowork OS',
     tagline: 'The system, set up by you.',
-    price: 67,
-    oldPrice: 127,
+    price: 87,
+    oldPrice: 147,
     includes: [
     { text: 'The Cowork OS template' },
     { text: 'The setup guide' },
     { text: 'The video tutorial' },
     { text: 'All future updates' }],
 
-    cta: 'Get Cowork OS · $67',
+    cta: 'Get Cowork OS · $87',
     href: LEMON_SQUEEZY_URL_SELF_SERVE
   },
   withSetup: {
     name: 'Cowork OS + 1:1',
     tagline: 'The system, set up with me.',
-    price: 267,
-    oldPrice: 327,
+    price: 287,
+    oldPrice: 347,
     includes: [
     { text: 'The Cowork OS template' },
     { text: 'The setup guide' },
@@ -40,7 +40,7 @@ const PRICING_PLANS = {
     { text: 'All future updates' },
     { text: '1-hour setup call (book within 30 days)', special: true }],
 
-    cta: 'Get Cowork OS + 1:1 · $267',
+    cta: 'Get Cowork OS + 1:1 · $287',
     href: LEMON_SQUEEZY_URL_WITH_SETUP
   }
 };
@@ -110,7 +110,7 @@ function PpCounterStrip({ claimed = 13, total = 50 }) {
             background: 'var(--orange)',
             boxShadow: '0 0 6px rgba(204,120,92,0.9)'
           }} />
-          Limited founding launch
+          Limited launch offer
         </span>
       </div>
 
@@ -126,7 +126,7 @@ function PpCounterStrip({ claimed = 13, total = 50 }) {
         borderRadius: 14
       }}>
         <span style={{ fontSize: 13, color: 'var(--ink-2)' }}>
-          <strong style={{ color: 'var(--ink)' }}>{claimed}</strong> of {total} founding spots claimed
+          <strong style={{ color: 'var(--ink)' }}>{claimed}</strong> of {total} launch spots claimed
         </span>
         <div style={{ height: 6, background: 'var(--bg)', borderRadius: 999, overflow: 'hidden', border: '1px solid var(--rule)' }}>
           <div style={{ width: pct + '%', height: '100%', background: 'var(--orange)', boxShadow: '0 0 12px rgba(204,120,92,0.7)' }} />
@@ -213,7 +213,8 @@ function PpCardContent({ name, tagline, price, oldPrice, includes, cta, href,
       {!tight && <div style={{ flex: 1, minHeight: 8 }} />}
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: tight ? 0 : 'auto' }}>
-        <PpFoundingBlock />
+        {/* Founding Members perk — disabled for launch. Re-enable when the offer comes back. */}
+        {/* <PpFoundingBlock /> */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: tight ? 'auto' : 0 }}>
           <PpCTA primary={ctaPrimary} icon={ctaIcon} href={href}>{cta}</PpCTA>
           <div style={{ textAlign: 'center', fontSize: 12, color: 'var(--ink-4)' }}>Secured checkout.</div>
@@ -266,7 +267,7 @@ function Pricing({ state }) {
             n="10"
             label="Pricing"
             title={<>Choose how you <em className="ital">start.</em></>}
-            lead="Set it up yourself, or set it up together. The first 50 get founding pricing."
+            lead="Set it up yourself, or set it up together. The first 50 get launch pricing."
             align="center"
             state={state} />
           

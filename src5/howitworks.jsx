@@ -26,7 +26,7 @@ function HowItWorks({ state }) {
             <Reveal key={i} delay={i * 100}>
               <div className="lp-how-card" style={{
                 padding: '28px 28px 30px',
-                background: 'var(--bg-2)',
+                background: 'var(--bg)',
                 border: '1px solid var(--rule)',
                 borderRadius: 16,
                 height: '100%',

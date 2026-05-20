@@ -4,10 +4,11 @@
 const { useEffect: uEff, useRef: uRef, useState: uSt } = React;
 
 function Eyebrow({ children, n }) {
+  // Section numbers (`n`) intentionally not rendered — call sites still pass them
+  // so they can be re-enabled by restoring the span below.
   return (
     <span className="eyebrow">
       <span className="dot" />
-      {n ? <span style={{ color: 'var(--ink-4)', fontFamily: 'JetBrains Mono, monospace' }}>{n}</span> : null}
       <span style={{ textTransform: 'uppercase', letterSpacing: '0.12em', fontSize: 11.5 }}>{children}</span>
     </span>);
 

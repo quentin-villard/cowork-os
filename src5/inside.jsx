@@ -101,14 +101,14 @@ function Inside({ state }) {
           display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16,
         }}>
           {[
-            { n: '02', tag: 'GUIDE',   t: 'The setup guide',    d: 'A step-by-step PDF with every prompt you need, including the onboarding sequence to personalize your system.' },
-            { n: '03', tag: 'VIDEO',   t: 'The video tutorial', d: 'A complete walkthrough from install to your first working session. Follow along at your own pace.' },
+            { n: '02', tag: 'GUIDE',   t: 'The setup guide',    d: 'A step-by-step document with every prompt you need, including the onboarding sequence to personalize your system.' },
+            { n: '03', tag: 'VIDEO',   t: 'Video tutorials', d: 'A complete walkthrough from install to your first working session. Follow along at your own pace.' },
             { n: '04', tag: 'UPDATES', t: 'All future updates', d: 'Every update to the system, included. New components, new skills, and new automations as they ship.' },
           ].map((c, i) => (
             <Reveal key={i} delay={i * 80}>
               <div style={{
                 padding: '26px 24px 28px',
-                background: 'var(--bg)',
+                background: 'var(--bg-2)',
                 border: '1px solid var(--rule)',
                 borderRadius: 14,
                 height: '100%',

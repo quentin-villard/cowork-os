@@ -7,11 +7,10 @@
 // card aligned across the two cards (a flex spacer pushes it down on Card 1
 // which has one fewer "What you get" line, while Card 2 stays tight).
 //
-// Lemon Squeezy checkout URLs are placeholders — replace LEMON_SQUEEZY_URL_*
-// when the products are live.
+// Lemon Squeezy checkout URLs — live products.
 
-const LEMON_SQUEEZY_URL_SELF_SERVE = '#'; // TODO: paste Cowork OS checkout URL
-const LEMON_SQUEEZY_URL_WITH_SETUP = '#'; // TODO: paste Cowork OS + 1:1 checkout URL
+const LEMON_SQUEEZY_URL_SELF_SERVE = 'https://cowork-os.lemonsqueezy.com/checkout/buy/1c4a1834-8d3d-4ecc-99d6-39313d5a128d';
+const LEMON_SQUEEZY_URL_WITH_SETUP = 'https://cowork-os.lemonsqueezy.com/checkout/buy/de6a4180-2de4-46a9-83cb-684c9c201cde';
 
 const PRICING_PLANS = {
   selfServe: {

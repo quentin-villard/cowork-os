@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-contrast="deep-warm">
+<html lang="en" data-contrast="charcoal">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -119,6 +119,8 @@
   /* Current = baseline v4, no override (html without data-contrast) */
 
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
@@ -398,6 +400,67 @@
   /* Reveal */
   .reveal { opacity: 0; transform: translateY(10px); transition: opacity .7s ease, transform .7s ease; }
   .reveal.in { opacity: 1; transform: none; }
+
+  /* AI "loading context" shimmer — sweeps a brighter wave across the TEXT (and
+     a subtle opacity pulse on the adjacent icon) of action rows in the
+     Memory/Voice/Tools illustrations. Background of the row is untouched.
+     Paused by default; runs only when the parent section has `.lp-ai-active`
+     (set via IntersectionObserver). */
+  .lp-ai-row { position: relative; width: fit-content; max-width: 100%; }
+  .lp-ai-row > span {
+    background-image: linear-gradient(
+      90deg,
+      var(--ink-3) 0%,
+      var(--ink-3) 35%,
+      var(--ink) 50%,
+      var(--ink-3) 65%,
+      var(--ink-3) 100%
+    );
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+    animation: lpAiTextShimmer 2.6s linear infinite;
+    animation-play-state: paused;
+  }
+  .lp-ai-row > span > span {
+    /* Flatten nested color overrides so the gradient applies uniformly. */
+    color: inherit !important;
+    background: none !important;
+  }
+  .lp-ai-row > svg, .lp-ai-row > img {
+    animation: lpAiIconPulse 2.6s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+  .lp-ai-active .lp-ai-row > span,
+  .lp-ai-active .lp-ai-row > svg,
+  .lp-ai-active .lp-ai-row > img {
+    animation-play-state: running;
+  }
+  @keyframes lpAiTextShimmer {
+    0%   { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
+  }
+  @keyframes lpAiIconPulse {
+    0%, 100% { opacity: 0.55; }
+    50%      { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lp-ai-row > span {
+      background: none;
+      color: var(--ink-3) !important;
+      animation: none;
+    }
+    .lp-ai-row > svg, .lp-ai-row > img { animation: none; opacity: 1; }
+  }
+
+  /* Typing caret for "And here we go again" — reuses painsBlink keyframes defined inline. */
+  .lp-typing-caret {
+    display: inline-block; width: 2px; height: 18px;
+    background: var(--ink-3); margin-left: 2px; vertical-align: middle;
+    animation: painsBlink 1s steps(2) infinite;
+  }
 
   .muted { color: var(--ink-3); }
 

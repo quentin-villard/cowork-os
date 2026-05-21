@@ -11,7 +11,7 @@ function TrustBar() {
   return (
     <section id="trust" style={{ padding: '0 0 56px' }}>
       <div className="shell">
-        <Reveal>
+        <RevealStrict>
           <div className="lp-trustbar" style={{
             display: 'flex', alignItems: 'center', gap: 16,
             justifyContent: 'center', flexWrap: 'wrap',
@@ -35,7 +35,7 @@ function TrustBar() {
               </React.Fragment>
             ))}
           </div>
-        </Reveal>
+        </RevealStrict>
       </div>
     </section>
   );

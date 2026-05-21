@@ -22,9 +22,79 @@ function UserBubble({ children }) {
   );
 }
 
-function PainComposer() {
+// Strict IntersectionObserver-driven stream of pain bubbles.
+// Each bubble appears with a "sent message" feel: small slide-from-below + fade,
+// staggered 140ms apart. Replaces the global Reveal which was firing on page load
+// because the section is within ~1.1× viewport on initial mount.
+function PainsBubbleStream({ pains }) {
+  const ref = React.useRef(null);
+  const [visible, setVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) { setVisible(true); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { setVisible(true); io.disconnect(); } });
+    }, { threshold: 0, rootMargin: '0px 0px -32% 0px' });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <div style={{
+    <div ref={ref} style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'stretch',
+      gap: 14,
+    }}>
+      {pains.map((p, i) => (
+        <div key={i} style={{
+          display: 'flex', justifyContent: 'flex-end',
+          opacity: visible ? 1 : 0,
+          transform: visible ? 'none' : 'translateY(12px)',
+          transition: `opacity .45s ease-out ${i * 140}ms, transform .45s ease-out ${i * 140}ms`,
+          willChange: 'opacity, transform',
+        }}>
+          <UserBubble>{p}</UserBubble>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function PainComposer() {
+  const FULL_TEXT = 'And here we go again';
+  const ref = React.useRef(null);
+  const [typed, setTyped] = React.useState('');
+  const startedRef = React.useRef(false);
+
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const start = () => {
+      if (startedRef.current) return;
+      startedRef.current = true;
+      if (reduced) { setTyped(FULL_TEXT); return; }
+      let i = 0;
+      const tick = () => {
+        i += 1;
+        setTyped(FULL_TEXT.slice(0, i));
+        if (i < FULL_TEXT.length) setTimeout(tick, 55 + Math.random() * 35);
+      };
+      setTimeout(tick, 250);
+    };
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) start(); });
+    }, { threshold: 0, rootMargin: '0px 0px -32% 0px' });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} style={{
       marginTop: 24,
       background: 'var(--panel-2)',
       border: '1px solid var(--rule-strong)',
@@ -38,16 +108,8 @@ function PainComposer() {
       fontSize: 15,
     }}>
       <span>
-        And here we go again
-        <span style={{
-          display: 'inline-block',
-          width: 2,
-          height: 18,
-          background: 'var(--ink-3)',
-          marginLeft: 2,
-          verticalAlign: 'middle',
-          animation: 'painsBlink 1s steps(2) infinite',
-        }} />
+        {typed}
+        <span className="lp-typing-caret" />
       </span>
       <span style={{
         width: 34, height: 34,
@@ -64,8 +126,22 @@ function PainComposer() {
 }
 
 function PainsTruthCard() {
+  const ref = React.useRef(null);
+  const [visible, setVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setVisible(true); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { setVisible(true); io.disconnect(); } });
+    }, { threshold: 0, rootMargin: '0px 0px -32% 0px' });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <div className="lp-pains-truth" style={{
+    <div ref={ref} className="lp-pains-truth" style={{
       marginTop: 72,
       padding: '48px 52px',
       border: '1px solid var(--rule-strong)',
@@ -77,15 +153,22 @@ function PainsTruthCard() {
       maxWidth: 860,
       marginLeft: 'auto',
       marginRight: 'auto',
+      opacity: visible ? 1 : 0,
+      transform: visible ? 'none' : 'translateY(18px)',
+      transition: 'opacity .65s ease-out, transform .65s ease-out',
     }}>
       <div style={{
         content: '""',
         position: 'absolute',
         left: '50%', top: -1,
-        transform: 'translateX(-50%)',
+        transform: `translateX(-50%) scaleX(${visible ? 1 : 0})`,
+        transformOrigin: 'center',
         width: 56, height: 2,
         background: 'var(--accent)',
-        boxShadow: '0 0 12px rgba(var(--accent-rgb), 1)',
+        boxShadow: visible
+          ? '0 0 12px rgba(var(--accent-rgb), 1)'
+          : '0 0 28px rgba(var(--accent-rgb), 1)',
+        transition: 'transform .7s cubic-bezier(0.22, 1, 0.36, 1) .25s, box-shadow 1.2s ease-out .25s',
       }} />
       <div className="mono" style={{
         fontSize: 11,
@@ -122,7 +205,7 @@ function Pains({ state }) {
     }}>
       <style>{`@keyframes painsBlink { 50% { opacity: 0; } }`}</style>
       <div className="shell" style={{ position: 'relative', zIndex: 1 }}>
-        <Reveal>
+        <RevealStrict>
           <SectionHead
             n="01"
             label="The problem"
@@ -130,7 +213,7 @@ function Pains({ state }) {
             lead={PAINS_TITLE.lead}
             state={state}
           />
-        </Reveal>
+        </RevealStrict>
 
         <div style={{ maxWidth: 720, margin: '0 auto', position: 'relative' }}>
           <div aria-hidden="true" style={{
@@ -143,7 +226,7 @@ function Pains({ state }) {
             mixBlendMode: 'multiply',
           }} />
           <div style={{ position: 'relative', zIndex: 1 }}>
-          <Reveal>
+          <RevealStrict>
             <div className="mono" style={{
               marginTop: 44,
               marginBottom: 20,
@@ -160,32 +243,15 @@ function Pains({ state }) {
               <span>— Messages you keep sending —</span>
               <span className="lp-pains-divider-rule" style={{ flex: '0 1 100px', height: 1, background: 'var(--rule)' }} />
             </div>
-          </Reveal>
+          </RevealStrict>
 
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'stretch',
-            gap: 14,
-          }}>
-            {PAINS.map((p, i) => (
-              <Reveal key={i} delay={i * 80}>
-                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  <UserBubble>{p}</UserBubble>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <PainsBubbleStream pains={PAINS} />
 
-          <Reveal delay={360}>
-            <PainComposer />
-          </Reveal>
+          <PainComposer />
           </div>
         </div>
 
-        <Reveal>
-          <PainsTruthCard />
-        </Reveal>
+        <PainsTruthCard />
       </div>
     </section>
   );

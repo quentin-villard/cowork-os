@@ -5,7 +5,7 @@ function HowItWorks({ state }) {
   return (
     <section id="how" className={cls + " sec-fade-top lp-section"} style={{ padding: '110px 0 110px', background: 'var(--bg-2)', position: 'relative' }}>
       <div className="shell" style={{ position: 'relative', zIndex: 1 }}>
-        <Reveal>
+        <RevealStrict>
           <SectionHead
             n="06"
             label="How it works"
@@ -14,7 +14,7 @@ function HowItWorks({ state }) {
             align="center"
             state={state}
           />
-        </Reveal>
+        </RevealStrict>
 
         <div className="lp-grid-3" style={{
           marginTop: 64,
@@ -23,7 +23,7 @@ function HowItWorks({ state }) {
           gap: 18,
         }}>
           {HOW.map((s, i) => (
-            <Reveal key={i} delay={i * 100}>
+            <RevealStrict key={i} delay={i * 140} threshold={0.25}>
               <div className="lp-how-card" style={{
                 padding: '28px 28px 30px',
                 background: 'var(--bg)',
@@ -51,7 +51,7 @@ function HowItWorks({ state }) {
                   {s.body}
                 </p>
               </div>
-            </Reveal>
+            </RevealStrict>
           ))}
         </div>
       </div>

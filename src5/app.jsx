@@ -22,10 +22,9 @@ function App() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Apply frozen design settings once on mount: charcoal contrast scheme,
-  // "visible" glow level, highlight words on.
+  // Apply frozen design settings once on mount: visible glow + highlight words.
+  // (data-contrast="charcoal" is set directly in index.html.)
   uE(() => {
-    document.documentElement.setAttribute('data-contrast', 'charcoal');
     document.documentElement.style.setProperty('--glow-k', '1');
     document.body.classList.add('hl-on');
   }, []);

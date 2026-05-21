@@ -121,4 +121,35 @@ function SectionHead({ n, label, title, lead, align = 'left' }) {
 
 }
 
-Object.assign(window, { Eyebrow, SectionMarker, Reveal, Arrow, Asterisk, Folder, Plus, ChevDown, SendArrow, SectionHead });
+// Strict variant of Reveal: triggers only via IntersectionObserver crossing
+// the configured threshold. Unlike Reveal, it does NOT fire eagerly when the
+// element is "near" the viewport on mount — useful for animations that
+// should be experienced ON scroll, not at page load.
+function RevealStrict({ children, delay = 0, threshold = 0, dy = 12, rootMargin = '0px 0px -32% 0px' }) {
+  const ref = uRef(null);
+  const [v, setV] = uSt(false);
+  uEff(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setV(true); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { setTimeout(() => setV(true), delay); io.unobserve(el); }
+      });
+    }, { threshold, rootMargin });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [delay, threshold, rootMargin]);
+  return (
+    <div ref={ref} style={{
+      opacity: v ? 1 : 0,
+      transform: v ? 'none' : `translateY(${dy}px)`,
+      transition: 'opacity .55s ease-out, transform .55s ease-out',
+      willChange: v ? 'auto' : 'opacity, transform',
+    }}>
+      {children}
+    </div>
+  );
+}
+
+Object.assign(window, { Eyebrow, SectionMarker, Reveal, RevealStrict, Arrow, Asterisk, Folder, Plus, ChevDown, SendArrow, SectionHead });

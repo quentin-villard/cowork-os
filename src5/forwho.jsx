@@ -5,7 +5,7 @@ function ForWho({ state }) {
   return (
     <section id="forwho" className={cls + " sec-fade-top lp-section"} style={{ padding: '110px 0 110px', background: 'var(--bg-2)', position: 'relative' }}>
       <div className="shell" style={{ position: 'relative', zIndex: 1 }}>
-        <Reveal>
+        <RevealStrict>
           <SectionHead
             n="08"
             label="Fit check"
@@ -14,7 +14,7 @@ function ForWho({ state }) {
             align="center"
             state={state}
           />
-        </Reveal>
+        </RevealStrict>
 
         <div style={{
           marginTop: 56,
@@ -22,22 +22,22 @@ function ForWho({ state }) {
           gap: 16,
           maxWidth: 860, margin: '56px auto 0',
         }}>
-          <Reveal>
+          <RevealStrict threshold={0.2}>
             <FitBlock
               accent="sage"
               heading="For you if"
               items={FOR_YOU}
               mark="check"
             />
-          </Reveal>
-          <Reveal>
+          </RevealStrict>
+          <RevealStrict delay={150} threshold={0.2}>
             <FitBlock
               accent="straw"
               heading="Not for you if"
               items={NOT_FOR_YOU}
               mark="cross"
             />
-          </Reveal>
+          </RevealStrict>
         </div>
       </div>
     </section>

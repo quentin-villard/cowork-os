@@ -13,9 +13,23 @@ function Benefits({ state }) {
 function BenefitSection({ benefit, index, reversed, state }) {
   const bg = index % 2 === 0 ? 'var(--bg)' : 'var(--bg-2)';
   const cls = sectionClass(benefit.accent, state);
+  const sectionRef = React.useRef(null);
+  const [active, setActive] = React.useState(false);
+
+  // Toggle the AI-shimmer animation only while the section is on screen.
+  // Keeps the gradient sweep paused everywhere else to save CPU/GPU work.
+  React.useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => setActive(e.isIntersecting));
+    }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   return (
-    <section className={cls + " sec-fade-top lp-section"} style={{
+    <section ref={sectionRef} className={cls + " sec-fade-top lp-section" + (active ? " lp-ai-active" : "")} style={{
       padding: '100px 0',
       background: bg,
       position: 'relative',
@@ -29,7 +43,7 @@ function BenefitSection({ benefit, index, reversed, state }) {
           direction: reversed ? 'rtl' : 'ltr',
         }}>
           <div style={{ direction: 'ltr' }}>
-            <Reveal>
+            <RevealStrict>
               <SectionMarker n={'0' + (index + 3)} label={benefit.label} state={state} />
               <h2 className="serif" style={{
                 fontSize: 'clamp(40px, 4.8vw, 60px)',
@@ -41,13 +55,13 @@ function BenefitSection({ benefit, index, reversed, state }) {
               <p style={{ fontSize: 18, color: 'var(--ink-2)', lineHeight: 1.6, margin: 0, maxWidth: 460, textWrap: 'pretty' }}>
                 {benefit.sub}
               </p>
-            </Reveal>
+            </RevealStrict>
           </div>
 
           <div style={{ direction: 'ltr' }}>
-            <Reveal delay={120}>
+            <RevealStrict delay={120}>
               <BenefitVisual benefit={benefit} reversed={reversed} />
-            </Reveal>
+            </RevealStrict>
           </div>
         </div>
       </div>
@@ -200,14 +214,12 @@ function MemoryIllustration({ benefit }) {
       <div>
         {MEMORY_FILES.map((f, i) => (
           <div key={f}>
-            <div style={{
+            <div className="lp-ai-row" style={{
               display: 'flex', alignItems: 'center', gap: 14,
               padding: '2px 0',
             }}>
               <MdDocIcon />
-              <span style={{ color: 'var(--ink-3)', fontSize: 14.5 }}>
-                Read <span style={{ color: 'var(--ink-2)' }}>{f}</span>
-              </span>
+              <span style={{ color: 'var(--ink-3)', fontSize: 14.5 }}>Read {f}</span>
             </div>
             {/* connector between this row and the next */}
             <div style={{
@@ -288,7 +300,7 @@ function ShowInFolderButton() {
     <div style={{
       display: 'inline-flex',
       alignItems: 'stretch',
-      background: 'var(--bg-3)',
+      background: '#1F1D1A',
       border: '1px solid var(--rule-strong)',
       borderRadius: 10,
       overflow: 'hidden',
@@ -359,14 +371,12 @@ function VoiceIllustration({ benefit }) {
       <div>
         {d.files.map((f) => (
           <React.Fragment key={f.path}>
-            <div style={{
+            <div className="lp-ai-row" style={{
               display: 'flex', alignItems: 'center', gap: 14,
               padding: '2px 0',
             }}>
               <MdDocIcon />
-              <span style={{ color: 'var(--ink-3)', fontSize: 14.5 }}>
-                {f.action} <span style={{ color: 'var(--ink-2)' }}>{f.path}</span>
-              </span>
+              <span style={{ color: 'var(--ink-3)', fontSize: 14.5 }}>{f.action} {f.path}</span>
             </div>
             <div style={{
               marginLeft: 9, width: 1, height: 14,
@@ -405,8 +415,8 @@ function VoiceIllustration({ benefit }) {
       {/* File card — variation A (tight) */}
       <div style={{
         marginTop: 18,
-        background: 'transparent',
-        border: '1px solid var(--rule)',
+        background: '#171614',
+        border: '1px solid var(--rule-strong)',
         borderRadius: 14,
         padding: '14px 18px',
         display: 'flex',
@@ -512,15 +522,15 @@ function ToolsIllustration({ benefit }) {
           const Icon = TOOL_ICON_MAP[row.tool];
           return (
             <React.Fragment key={i}>
-              <div style={{
+              <div className="lp-ai-row" style={{
                 display: 'flex', alignItems: 'center', gap: 14,
                 padding: '2px 0',
               }}>
                 {Icon ? <Icon size={18} /> : null}
                 <span style={{ color: 'var(--ink-3)', fontSize: 14.5 }}>
                   {row.action || row.label}
-                  {row.target ? <> <span style={{ color: 'var(--ink-2)' }}>{row.target}</span></> : null}
-                  {row.query ? <span style={{ color: 'var(--ink-2)' }}> · {row.query}</span> : null}
+                  {row.target ? <> {row.target}</> : null}
+                  {row.query ? <> · {row.query}</> : null}
                 </span>
               </div>
               <div style={{

@@ -91,8 +91,31 @@ function PpBullet({ children, kind = 'check' }) {
 function PpCounterStrip({ claimed = 13, total = 50 }) {
   const pct = claimed / total * 100;
   const left = total - claimed;
+  const ref = React.useRef(null);
+  const [filled, setFilled] = React.useState(false);
+
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setFilled(true); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { setFilled(true); io.disconnect(); } });
+    }, { threshold: 0, rootMargin: '0px 0px -20% 0px' });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <div style={{ maxWidth: 760, margin: '0 auto' }}>
+    <div ref={ref} style={{ maxWidth: 760, margin: '0 auto' }}>
+      <style>{`
+        @keyframes ppBarShimmer {
+          0%   { background-position: 130% 0; }
+          100% { background-position: -30% 0; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .pp-progress-fill { transition: none !important; animation: none !important; }
+        }
+      `}</style>
       {/* Scarcity eyebrow — pulsing dot + "Limited founding launch" */}
       <div style={{ textAlign: 'center', marginBottom: 12 }}>
         <span style={{
@@ -129,7 +152,16 @@ function PpCounterStrip({ claimed = 13, total = 50 }) {
           <strong style={{ color: 'var(--ink)' }}>{claimed}</strong> of {total} launch spots claimed
         </span>
         <div style={{ height: 6, background: 'var(--bg)', borderRadius: 999, overflow: 'hidden', border: '1px solid var(--rule)' }}>
-          <div style={{ width: pct + '%', height: '100%', background: 'var(--orange)', boxShadow: '0 0 12px rgba(204,120,92,0.7)' }} />
+          <div className="pp-progress-fill" style={{
+            width: (filled ? pct : 0) + '%',
+            height: '100%',
+            backgroundImage: 'linear-gradient(90deg, var(--orange) 0%, var(--orange) 38%, rgba(255,209,184,1) 50%, var(--orange) 62%, var(--orange) 100%)',
+            backgroundSize: '220% 100%',
+            backgroundPosition: '130% 0',
+            boxShadow: '0 0 12px rgba(204,120,92,0.7)',
+            transition: 'width 1.5s cubic-bezier(0.22, 1, 0.36, 1)',
+            animation: filled ? 'ppBarShimmer 2.4s linear infinite 1.7s' : 'none',
+          }} />
         </div>
         <span className="mono" style={{ fontSize: 11.5, color: 'var(--orange-ink)', letterSpacing: '0.04em', whiteSpace: 'nowrap' }}>
           {left} left
@@ -225,23 +257,17 @@ function PpCardContent({ name, tagline, price, oldPrice, includes, cta, href,
 }
 
 function PpCTA({ primary, icon = 'arrow', href = '#', children }) {
-  const style = primary ? {
-    background: 'var(--orange)', color: '#fff',
-    boxShadow: '0 10px 30px -12px rgba(204,120,92,0.6)',
-    border: '1px solid transparent'
-  } : {
-    background: 'transparent', color: 'var(--ink)',
-    border: '1px solid var(--rule-strong)'
-  };
+  // Reuse the global .btn / .btn-primary / .btn-ghost styles so we inherit the
+  // shared hover treatment (translateY, box-shadow ring, background change).
   return (
-    <a href={href} style={{
-      width: '100%', justifyContent: 'center', padding: '14px 20px', fontSize: 14.5,
-      display: 'inline-flex', alignItems: 'center', gap: 8,
-      borderRadius: 10, fontWeight: 500,
-      transition: 'transform .15s, background .2s, border-color .2s, box-shadow .2s',
-      cursor: 'pointer', whiteSpace: 'nowrap', textDecoration: 'none',
-      ...style
-    }}>
+    <a
+      href={href}
+      className={'btn ' + (primary ? 'btn-primary' : 'btn-ghost')}
+      style={{
+        width: '100%', justifyContent: 'center', padding: '14px 20px', fontSize: 14.5,
+        textDecoration: 'none',
+      }}
+    >
       {children} {icon === 'plus' ? <PpPlus size={14} color={primary ? '#fff' : 'currentColor'} /> : <PpArrow />}
     </a>);
 
@@ -262,7 +288,7 @@ function Pricing({ state }) {
       overflow: 'hidden'
     }}>
       <div className="shell" style={{ position: 'relative', zIndex: 1 }}>
-        <Reveal>
+        <RevealStrict>
           <SectionHead
             n="10"
             label="Pricing"
@@ -271,15 +297,15 @@ function Pricing({ state }) {
             align="center"
             state={state} />
           
-        </Reveal>
+        </RevealStrict>
 
-        <Reveal delay={80}>
+        <RevealStrict delay={80}>
           <div style={{ marginTop: 44, marginBottom: 28 }}>
             <PpCounterStrip />
           </div>
-        </Reveal>
+        </RevealStrict>
 
-        <Reveal delay={120}>
+        <RevealStrict delay={120}>
           <div className="lp-grid-2-pri" style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
@@ -334,7 +360,7 @@ function Pricing({ state }) {
               </div>
             </div>
           </div>
-        </Reveal>
+        </RevealStrict>
 
         <p style={{
           marginTop: 36, fontSize: 12, color: 'var(--ink-4)',

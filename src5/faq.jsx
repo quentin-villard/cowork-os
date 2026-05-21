@@ -13,7 +13,7 @@ function FAQ({ state }) {
           display: 'grid', gridTemplateColumns: '1fr 1.4fr',
           gap: 72, alignItems: 'start',
         }}>
-          <Reveal>
+          <RevealStrict>
             <div className="lp-no-sticky-mobile" style={{ position: 'sticky', top: 40 }}>
               <SectionMarker n="11" label="FAQ" state={state} />
               <h2 className="serif" style={{
@@ -27,16 +27,16 @@ function FAQ({ state }) {
                 The things people ask me. Still stuck? <a href="mailto:hello@cowork-os.com?subject=Question before buying" className="link-u">Email me</a>.
               </p>
             </div>
-          </Reveal>
+          </RevealStrict>
 
-          <Reveal>
+          <RevealStrict delay={120}>
             <div>
               {FAQS.map((o, i) => (
                 <FAQRow key={i} q={o.q} a={o.a} n={i+1}
                   open={open === i} onClick={() => setOpen(open === i ? -1 : i)}/>
               ))}
             </div>
-          </Reveal>
+          </RevealStrict>
         </div>
       </div>
     </section>

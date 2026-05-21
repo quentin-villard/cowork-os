@@ -6,6 +6,9 @@
 
 function Meet({ state }) {
   const cls = sectionClass('orange', state);
+  const sectionRef = React.useRef(null);
+  const pillRef = React.useRef(null);
+  const [pillsVisible, setPillsVisible] = React.useState(false);
 
   const pillars = [
     { label: 'Memory', rgb: '204,120,92' },  // orange
@@ -13,11 +16,57 @@ function Meet({ state }) {
     { label: 'Tools',  rgb: '214,168,91' },  // straw
   ];
 
+  // Scroll-driven glow intensity (--glow-k from 0.3 → 1.0). Once the section
+  // is centered in the viewport we stay at full intensity — the sections
+  // below reveal what's inside the now-lit folder.
+  React.useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) { el.style.setProperty('--glow-k', '1'); return; }
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight || 800;
+      // 0 when the section's top is at the bottom of the viewport
+      // 1 when the section's center reaches the middle of the viewport (or past it)
+      const center = r.top + r.height / 2;
+      const progress = 1 - Math.min(1, Math.max(0, center / vh));
+      const k = 0.15 + 0.85 * progress;
+      el.style.setProperty('--glow-k', k.toFixed(3));
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
+  // Pillar entrance — staggered fade-up once the pill bar reaches the viewport.
+  React.useEffect(() => {
+    const el = pillRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { setPillsVisible(true); io.disconnect(); } });
+    }, { threshold: 0, rootMargin: '0px 0px -32% 0px' });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <section id="meet" className={cls + " lp-section"} style={{
+    <section ref={sectionRef} id="meet" className={cls + " lp-section"} style={{
       padding: '120px 0 110px',
       position: 'relative',
       overflow: 'hidden',
+      '--glow-k': 0.15,
     }}>
       {/* Folder-leak glow — two stacked radials, sized to scale with viewport */}
       <div aria-hidden style={{
@@ -40,7 +89,7 @@ function Meet({ state }) {
       </div>
 
       <div className="shell" style={{ position: 'relative', zIndex: 1 }}>
-        <Reveal>
+        <RevealStrict>
           <div style={{ textAlign: 'center', maxWidth: 900, margin: '0 auto' }}>
             <div style={{ marginBottom: 28 }}>
               <SectionMarker n="02" label="The system" state={state} />
@@ -73,7 +122,7 @@ function Meet({ state }) {
             </p>
 
             {/* 3-pillar bridge to the Benefit sections that follow */}
-            <div className="lp-meet-pill" style={{
+            <div ref={pillRef} className="lp-meet-pill" style={{
               display: 'inline-flex', alignItems: 'center', gap: 28,
               padding: '14px 24px',
               borderRadius: 999,
@@ -86,7 +135,12 @@ function Meet({ state }) {
             }}>
               {pillars.map((p, i) => (
                 <React.Fragment key={p.label}>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 9 }}>
+                  <span style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 9,
+                    opacity: pillsVisible ? 1 : 0,
+                    transform: pillsVisible ? 'none' : 'translateY(6px)',
+                    transition: `opacity .55s ease-out ${i * 130}ms, transform .55s ease-out ${i * 130}ms`,
+                  }}>
                     <span style={{
                       width: 8, height: 8, borderRadius: '50%',
                       background: `rgb(${p.rgb})`,
@@ -100,13 +154,17 @@ function Meet({ state }) {
                     </span>
                   </span>
                   {i < pillars.length - 1 ? (
-                    <span className="lp-meet-sep" style={{ width: 14, height: 1, background: 'var(--rule-strong)' }}/>
+                    <span className="lp-meet-sep" style={{
+                      width: 14, height: 1, background: 'var(--rule-strong)',
+                      opacity: pillsVisible ? 1 : 0,
+                      transition: `opacity .55s ease-out ${i * 130 + 65}ms`,
+                    }}/>
                   ) : null}
                 </React.Fragment>
               ))}
             </div>
           </div>
-        </Reveal>
+        </RevealStrict>
       </div>
     </section>
   );

@@ -12,7 +12,7 @@ function Inside({ state }) {
     }}>
       <div className="shell" style={{ position: 'relative', zIndex: 1 }}>
 
-        <Reveal>
+        <RevealStrict>
           <SectionHead
             n="07"
             label="What's included"
@@ -21,9 +21,9 @@ function Inside({ state }) {
             align="center"
             state={state}
           />
-        </Reveal>
+        </RevealStrict>
 
-        <Reveal>
+        <RevealStrict threshold={0.15}>
           <div style={{
             marginTop: 56,
             background: 'var(--bg)',
@@ -94,7 +94,7 @@ function Inside({ state }) {
               </div>
             </div>
           </div>
-        </Reveal>
+        </RevealStrict>
 
         <div className="lp-grid-3-cards" style={{
           marginTop: 16,
@@ -105,7 +105,7 @@ function Inside({ state }) {
             { n: '03', tag: 'VIDEO',   t: 'Video tutorials', d: 'A complete walkthrough from install to your first working session. Follow along at your own pace.' },
             { n: '04', tag: 'UPDATES', t: 'All future updates', d: 'Every update to the system, included. New components, new skills, and new automations as they ship.' },
           ].map((c, i) => (
-            <Reveal key={i} delay={i * 80}>
+            <RevealStrict key={i} delay={i * 120} threshold={0.25}>
               <div style={{
                 padding: '26px 24px 28px',
                 background: 'var(--bg-2)',
@@ -127,7 +127,7 @@ function Inside({ state }) {
                   {c.d}
                 </p>
               </div>
-            </Reveal>
+            </RevealStrict>
           ))}
         </div>
       </div>

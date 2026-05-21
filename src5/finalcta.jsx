@@ -8,7 +8,7 @@ function FinalCTA({ state }) {
       textAlign: 'center', position: 'relative',
     }}>
       <div className="shell" style={{ position: 'relative', zIndex: 1 }}>
-        <Reveal>
+        <RevealStrict>
           <Asterisk size={42} />
           <h2 className="serif" style={{
             fontSize: 'clamp(46px, 6vw, 82px)',
@@ -33,7 +33,7 @@ function FinalCTA({ state }) {
           <div style={{ fontSize: 12.5, color: 'var(--ink-4)', marginTop: 20 }}>
             One-time payment. Secured checkout.
           </div>
-        </Reveal>
+        </RevealStrict>
       </div>
     </section>
   );
@@ -51,21 +51,24 @@ function Footer() {
         gap: 32, flexWrap: 'wrap',
       }}>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+          <a
+            href="/"
+            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            aria-label="Back to top"
+            style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8, color: 'inherit', textDecoration: 'none', cursor: 'pointer' }}
+          >
             <LogoIcon size={24} />
             <span className="serif" style={{ fontSize: 18 }}>Cowork OS</span>
-          </div>
+          </a>
           <div style={{ fontSize: 12, color: 'var(--ink-4)' }}>
-            cowork-os.com · a coworker for Claude
+            cowork-os.com · Operating System for Claude Cowork
           </div>
         </div>
         <div style={{ display: 'flex', gap: 32, fontSize: 13.5, color: 'var(--ink-3)', flexWrap: 'wrap' }}>
           <a className="link-u" href="#benefits">What it does</a>
           <a className="link-u" href="#pricing">Pricing</a>
           <a className="link-u" href="#faq">FAQ</a>
-          <a className="link-u" href="mailto:quentin@cowork-os.com">Contact</a>
-          <a className="link-u" href="#">Terms</a>
-          <a className="link-u" href="#">Privacy</a>
+          <a className="link-u" href="mailto:hello@cowork-os.com?subject=Question before buying">Contact</a>
         </div>
       </div>
       <div className="shell" style={{
@@ -73,7 +76,7 @@ function Footer() {
         fontSize: 11.5, color: 'var(--ink-4)',
         display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12,
       }}>
-        <span>© 2026 Cowork OS — independent project</span>
+        <span>© 2026 Cowork OS</span>
         <span>Not affiliated with Anthropic. Claude is a trademark of Anthropic.</span>
       </div>
     </footer>

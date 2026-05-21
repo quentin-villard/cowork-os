@@ -14,7 +14,7 @@ function Founder({ state }) {
           gap: 64,
           alignItems: 'start',
         }}>
-          <Reveal>
+          <RevealStrict>
             <div className="lp-no-sticky-mobile" style={{ position: 'sticky', top: 40 }}>
               <SectionMarker n="09" label="About the creator" state={state} />
               <h2 className="serif" style={{
@@ -35,9 +35,9 @@ function Founder({ state }) {
                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
             </div>
-          </Reveal>
+          </RevealStrict>
 
-          <Reveal delay={100}>
+          <RevealStrict delay={120}>
             <div style={{ maxWidth: 620 }}>
               {FOUNDER_PARAGRAPHS.map((p, i) => (
                 <p key={i} style={{
@@ -51,7 +51,7 @@ function Founder({ state }) {
                 </p>
               ))}
             </div>
-          </Reveal>
+          </RevealStrict>
         </div>
       </div>
     </section>

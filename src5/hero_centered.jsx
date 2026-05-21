@@ -78,10 +78,15 @@ function Nav() {
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       padding: '14px 0',
     }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0, whiteSpace: 'nowrap' }}>
+      <a
+        href="/"
+        onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+        aria-label="Back to top"
+        style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0, whiteSpace: 'nowrap', color: 'inherit', textDecoration: 'none', cursor: 'pointer' }}
+      >
         <LogoIcon size={30} glow />
         <span className="serif" style={{ fontSize: 22, whiteSpace: 'nowrap' }}>Cowork OS</span>
-      </div>
+      </a>
       <div className="lp-nav-links" style={{ display: 'flex', alignItems: 'center', gap: 22, fontSize: 14, color: 'var(--ink-2)' }}>
         <a href="#benefits" className="link-u">What it does</a>
         <a href="#how" className="link-u">How it works</a>
@@ -207,54 +212,19 @@ function Hero({ state }) {
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-            {/* Striped placeholder background */}
-            <div style={{
-              position: 'absolute',
-              inset: 0,
-              backgroundImage: 'repeating-linear-gradient(135deg, transparent, transparent 14px, rgba(255,255,255,0.015) 14px, rgba(255,255,255,0.015) 28px)',
-            }} />
-
-            {/* Play button */}
-            <div style={{
-              position: 'relative',
-              zIndex: 1,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 20,
-            }}>
-              <div style={{
-                width: 72, height: 72,
-                borderRadius: '50%',
-                background: 'rgba(204,120,92,0.15)',
-                border: '1px solid rgba(204,120,92,0.35)',
-                display: 'grid',
-                placeItems: 'center',
-                cursor: 'pointer',
-                transition: 'background .2s ease, transform .2s ease',
-                backdropFilter: 'blur(8px)',
+            {/* Tella embed — responsive 16:9, no autoplay */}
+            <iframe
+              src="https://www.tella.tv/video/vid_cmpfa22dr00g40bjc2id50wxf/embed?b=0&title=0&a=1&loop=0&t=0&muted=0&wt=0&o=0"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                border: 0,
               }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.background = 'rgba(204,120,92,0.28)';
-                  e.currentTarget.style.transform = 'scale(1.06)';
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.background = 'rgba(204,120,92,0.15)';
-                  e.currentTarget.style.transform = 'scale(1)';
-                }}
-              >
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-                  <polygon points="8,5 19,12 8,19" fill="var(--orange-ink)" />
-                </svg>
-              </div>
-              <span style={{
-                fontFamily: 'var(--font-mono, monospace)',
-                fontSize: 12,
-                letterSpacing: '0.1em',
-                color: 'var(--ink-4)',
-                textTransform: 'uppercase',
-              }}>Demo · 2 min</span>
-            </div>
+              allow="autoplay; fullscreen"
+              title="Cowork OS demo"
+            />
           </div>
         </div>
 
